@@ -47,7 +47,7 @@ connectButton.onclick = async () => {
 
   stopAllStreams();
   closePC();
-
+  
   const sessionResponse = await fetchWithRetries(`${DID_API.url}/${DID_API.service}/streams`, {
     method: 'POST',
     headers: {
@@ -63,7 +63,6 @@ connectButton.onclick = async () => {
 
   try {
     sessionClientAnswer = await createPeerConnection(offer, iceServers);
-    videoElement.muted = false;
     $(".spinner").remove();
     $(".msger-input").attr("readonly",false);
     $(".sendbuttons").attr("disabled",false);
@@ -242,6 +241,7 @@ async function createPeerConnection(offer, iceServers) {
 function setVideoElement(stream) {
   if (!stream) return;
   videoElement.srcObject = stream;
+  videoElement.muted = false;
   videoElement.loop = false;
 
   // safari hotfix
