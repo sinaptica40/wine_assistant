@@ -1,0 +1,515 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Explore Wine</title>
+    <link rel="apple-touch-icon" sizes="57x57" href="{{ url_for('static', filename='img/favicon/apple-icon-57x57.png') }}">
+    <link rel="apple-touch-icon" sizes="60x60" href="{{ url_for('static', filename='img/favicon/apple-icon-60x60.png') }}">
+    <link rel="apple-touch-icon" sizes="72x72" href="{{ url_for('static', filename='img/favicon/apple-icon-72x72.png') }}">
+    <link rel="apple-touch-icon" sizes="76x76" href="{{ url_for('static', filename='img/favicon/apple-icon-76x76.png') }}">
+    <link rel="apple-touch-icon" sizes="114x114" href="{{ url_for('static', filename='img/favicon/apple-icon-114x114.png') }}">
+    <link rel="apple-touch-icon" sizes="120x120" href="{{ url_for('static', filename='img/favicon/apple-icon-120x120.png') }}">
+    <link rel="apple-touch-icon" sizes="144x144" href="{{ url_for('static', filename='img/favicon/apple-icon-144x144.png') }}">
+    <link rel="apple-touch-icon" sizes="152x152" href="{{ url_for('static', filename='img/favicon/apple-icon-152x152.png') }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ url_for('static', filename='img/favicon/apple-icon-180x180.png') }}">
+    <link rel="icon" type="image/png" sizes="192x192" href="{{ url_for('static', filename='img/favicon/android-icon-192x192.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='img/favicon/favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="96x96" href="{{ url_for('static', filename='img/favicon/favicon-96x96.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='img/favicon/favicon-16x16.png') }}">
+    <link rel="manifest" href="{{ url_for('static', filename='img/favicon/manifest.json') }}">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="{{ url_for('static', filename='img/favicon/ms-icon-144x144.png') }}">
+    <meta name="theme-color" content="#ffffff">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300,400,500,600,700,800&display=swap" rel="stylesheet">
+    
+    <!-- Bootstrap  v5.3.0  CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <!-- Custom Responsive CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/responsive.css') }}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+   
+    
+</head>
+
+<body>
+    <!-- loader  -->
+    <div class="loader-wrapper" style="display: none;">
+        <div class="loader">
+            <img src="{{ url_for('static', filename='img/logo.png') }}" alt="">
+        </div>
+    </div>
+
+    <!-- Header -->
+    <!-- <header id="header">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <nav class="navbar navbar-expand-lg">
+                        <a class="navbar-brand" href="index.html">
+                            <img src="{{ url_for('static', filename='img/logo.png') }}" alt="">
+                        </a>
+                        <div class="overlay" style="display:none"></div>
+                        <div class="collapse navbar-collapse">
+                            <button class="navbar-toggler menuClose-icon" type="button">
+                                <svg width="14" height="14" viewBox="0 0 14 14" fill="none"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M1.4 14L0 12.6L5.6 7L0 1.4L1.4 0L7 5.6L12.6 0L14 1.4L8.4 7L14 12.6L12.6 14L7 8.4L1.4 14Z"
+                                        fill="black" />
+                                </svg>
+                            </button>
+
+                
+                        </div>
+
+
+                        <button class="navbar-toggler" type="button">
+                            <span class="navbar-toggler-icon"></span>
+                        </button>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header> -->
+
+    <!-- chatBox -->
+    <style>
+   
+    </style>
+    <div id="root">
+    <div class="msgerBox">
+        <div class="msger">
+        <div class="msger-header"> 
+            <a class="fixedLogo" href="javascript:void(0)">
+                <img src="{{ url_for('static', filename='img/logo.png') }}" alt="">
+            </a>
+          <div class="msger-header-bg"></div>
+          <div class="msger-header-title">
+                <video id="video-element" muted autoplay loop poster="{{ url_for('static', filename='img/avatar1.png') }}" >
+                    <source src="{{ url_for('static', filename='img/1708699033779.mp4') }}" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+
+              <div id="buttons" style="display: none;">
+                <button id="playButton" type="button">Play</button>
+                <button id="connect-button" type="button">Connect</button>
+                <button id="start-button" type="button">Start</button>
+                <button id="destroy-button" type="button">Destroy</button>
+              </div>
+        
+              <!-- added div#status -->
+              <div id="status" style="display: none;">
+                <!-- removed the wrapping <div> tags -->
+                ICE gathering status: <label id="ice-gathering-status-label"></label
+                ><br />
+                ICE status: <label id="ice-status-label"></label><br />
+                Peer connection status: <label id="peer-status-label"></label><br />
+                Signaling status: <label id="signaling-status-label"></label><br />
+                Streaming status: <label id="streaming-status-label"></label><br />
+              </div>
+            </div>
+            
+          <div class="msger-header-options">
+            <span><i class="fas fa-cog"></i></span>
+          </div>
+          <div  class="aiName"></div>
+        </div>
+      
+        <main class="msger-chat">
+          <div class="msg left-msg">      
+            <div class="msg-bubble">
+              <div class="msg-text">
+                Hi, I’m Lorenzo 👋 your friendly Wine Expert
+              </div>
+            </div>
+          </div>
+          <div class="msg left-msg">
+            <div class="msg-bubble">      
+              <div class="msg-text">
+                Ready to chat?
+              </div>
+            </div>
+          </div>
+      
+        </main>
+      
+        <div class="msger-inputarea">
+            <div class="typing-loader"></div>
+          <input type="text" class="msger-input" readonly id="chat-input" placeholder="Enter your message...">
+          <button class="send-message msgBtnSvg sendbuttons" disabled id="SentButton" type="button"><span class="spinner"></span><svg xmlns="http://www.w3.org/2000/svg"  fill="#000"  viewBox="0 0 512 512"> <path d="M440 6.5L24 246.4c-34.4 19.9-31.1 70.8 5.7 85.9L144 379.6V464c0 46.4 59.2 65.5 86.6 28.6l43.8-59.1 111.9 46.2c5.9 2.4 12.1 3.6 18.3 3.6 8.2 0 16.3-2.1 23.6-6.2 12.8-7.2 21.6-20 23.9-34.5l59.4-387.2c6.1-40.1-36.9-68.8-71.5-48.9zM192 464v-64.6l36.6 15.1L192 464zm212.6-28.7l-153.8-63.5L391 169.5c10.7-15.5-9.5-33.5-23.7-21.2L155.8 332.6 48 288 464 48l-59.4 387.3z"/></svg></button>
+
+            <button class="record-button msgBtnSvg sendbuttons" disabled type="button"><span class="spinner"></span><svg xmlns="http://www.w3.org/2000/svg" fill="#579ffb" viewBox="0 0 352 512"><path d="M176 352c53 0 96-43 96-96V96c0-53-43-96-96-96S80 43 80 96v160c0 53 43 96 96 96zm160-160h-16c-8.8 0-16 7.2-16 16v48c0 74.8-64.5 134.8-140.8 127.4C96.7 376.9 48 317.1 48 250.3V208c0-8.8-7.2-16-16-16H16c-8.8 0-16 7.2-16 16v40.2c0 89.6 64 169.6 152 181.7V464H96c-8.8 0-16 7.2-16 16v16c0 8.8 7.2 16 16 16h160c8.8 0 16-7.2 16-16v-16c0-8.8-7.2-16-16-16h-56v-33.8C285.7 418.5 352 344.9 352 256v-48c0-8.8-7.2-16-16-16z"/></svg></button>
+
+            <span class="recording-status" style="display: none;">Recording...</span>
+            <button class="stop-recording msgBtnSvg" type="button" style="display: none;"><svg xmlns="http://www.w3.org/2000/svg" fill="#28a745" viewBox="0 0 448 512"><path d="M400 32H48C21.5 32 0 53.5 0 80v352c0 26.5 21.5 48 48 48h352c26.5 0 48-21.5 48-48V80c0-26.5-21.5-48-48-48z"/></svg></button>
+
+
+
+        </div>
+        </div>
+      </div>
+    </div>
+    <script>
+
+    var avatar_path   = "{{ url_for('static', filename='img/avatar1.png', _external=True) }}";
+    var video_path   = "{{ url_for('static', filename='img/1708699033779.mp4', _external=True) }}";
+
+    </script>
+
+      <script src="{{ url_for('static', filename='js/index.js') }}"></script>
+    <script>
+        
+
+
+        $(document).ready(function() {
+            
+            $(".record-button").click(function() {
+                $(this).hide();
+                $(".stop-recording").show();
+                $(".recording-status").show();
+            });
+
+            $(".stop-recording").click(function() {
+                $(this).hide();
+                $(".record-button").show();
+                $(".recording-status").hide();
+                sendMessageWhenStopRecording()
+                
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            let recognition;
+            let timer;
+
+            $('.record-button').click(function() {
+                var noteContent = '';
+
+                recognition = new webkitSpeechRecognition();
+                recognition.continuous = true;
+                recognition.interimResults = true;
+                recognition.lang = 'it-IT';
+
+                recognition.onresult = function(event) {
+                    // event is a SpeechRecognitionEvent object.
+                    // It holds all the lines we have captured so far. 
+                    // We only need the current one.
+                    var current = event.resultIndex;
+
+                    // Get a transcript of what was said.
+                    var transcript = event.results[current][0].transcript;
+
+                    // Add the current transcript to the contents of our Note.
+                    // There is a weird bug on mobile, where everything is repeated twice.
+                    // There is no official solution so far so we have to handle an edge case.
+                    var mobileRepeatBug = (current == 1 && transcript == event.results[0][0].transcript);
+
+                    console.log(current)
+                    console.log(mobileRepeatBug)    
+                    console.log(event.results)    
+                    if(!mobileRepeatBug) {
+                        for (let i = event.resultIndex; i < event.results.length; ++i) {
+                            if (event.results[i].isFinal) {
+                                noteContent += event.results[i][0].transcript;
+                            }
+                        }
+
+                        $('#chat-input').val(noteContent);
+                        clearTimeout(timer);
+                        timer = setTimeout(function() {
+                            recognition.stop();
+                        }, 3000);
+                    }
+
+
+                    /* let interimTranscript = '';
+                    for (let i = event.resultIndex; i < event.results.length; ++i) {
+                        if (event.results[i].isFinal) {
+                            $('#chat-input').val($('#chat-input').val() + event.results[i][0].transcript + '\n');
+                        } else {
+                            interimTranscript += event.results[i][0].transcript;
+                        }
+                    }
+                    console.log(interimTranscript); */
+                    // Reset the timer for inactivity
+                   /*  clearTimeout(timer);
+                    timer = setTimeout(function() {
+                        recognition.stop();
+                    }, 2000); // Stop recognition after 2 seconds of inactivity */
+                };
+
+                recognition.onend = function() {
+                    console.log('Speech recognition ended.');
+                    $(".stop-recording").hide();
+                    $(".record-button").show();
+                    $(".recording-status").hide();
+                    sendMessageWhenStopRecording()
+                };
+
+                recognition.start();
+            });
+
+        });
+    </script>
+    <script type="text/javascript">
+        const chatInput = document.getElementById("chat-input");
+        const sendButton = document.getElementById("SentButton");
+
+        function createMessage(message, isUser = true) {
+            $.ajax({
+                type: 'POST',
+                url: '/api/v1/get_answer',
+                data: { user_input: message },
+                success: function(response) {
+                    appendMessage(response, false);
+                    $(".typing-loader").hide();
+                },
+                error: function(error) {
+                    appendMessage("Something happened wrong. Please try again.", false);
+                    $(".typing-loader").hide();
+                    console.error('Error:', error);
+                }
+            });
+        }
+
+        function getCurrentTime(){
+            // Get current date and time
+            let currentTime = new Date();
+
+            // Get current hours and minutes
+            let currentHours = currentTime.getHours();
+            let currentMinutes = currentTime.getMinutes();
+
+            // Format hours and minutes with leading zeros if needed
+            currentHours = currentHours < 10 ? "0" + currentHours : currentHours;
+            currentMinutes = currentMinutes < 10 ? "0" + currentMinutes : currentMinutes;
+
+            // Display current time in "hh:mm" format
+            console.log(currentHours + ":" + currentMinutes);
+
+            return currentHours + ":" + currentMinutes;
+        }
+
+        var getCurrentTime     =    getCurrentTime();
+        $(".firstmessagetime").html(getCurrentTime);
+
+        async function appendMessage(message, isUser = true) {
+            // connectionState not supported in firefox
+            if ((peerConnection?.signalingState === 'stable' || peerConnection?.iceConnectionState === 'connected') && isUser == false) {
+                const playResponse =  await fetchWithRetries(`${DID_API.url}/${DID_API.service}/streams/${streamId}`, {
+                method: 'POST',
+                headers: {
+                    Authorization: `Basic ${DID_API.key}`,
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    script: {
+                    type: 'text',
+                    input: message,
+                    },
+                    ...(DID_API.service === 'clips' && {
+                    background: {
+                        color: '#FFFFFF'
+                    }
+                    }),
+                    config: {
+                    stitch: true,
+                    },
+                    session_id: sessionId,
+                }),
+                }).then(function(response){
+                    console.log(4545)
+                });
+            } 
+
+            // Get current date and time
+            let currentTime = new Date();
+
+            // Get current hours and minutes
+            let currentHours = currentTime.getHours();
+            let currentMinutes = currentTime.getMinutes();
+
+            // Format hours and minutes with leading zeros if needed
+            currentHours = currentHours < 10 ? "0" + currentHours : currentHours;
+            currentMinutes = currentMinutes < 10 ? "0" + currentMinutes : currentMinutes;
+
+            var name        =   isUser ? 'You' : 'ChatBot'
+            var classv      =   isUser ? 'right' : 'left'
+            var time        =   currentHours + ":" + currentMinutes;
+
+            var innerHTML   =   `<div class="msg `+classv+`-msg">
+                                    <div class="msg-bubble">
+                                    <div class="msg-text">
+                                        `+message+`
+                                    </div>
+                                    </div>
+                                </div>`
+
+            $(".msger-chat").append(innerHTML);
+
+            // Scroll down to the bottom of a div with ID "myDiv"
+            $(".msger-chat").animate({ scrollTop: $(".msger-chat")[0].scrollHeight }, "slow");
+
+
+        }
+
+        chatInput.addEventListener("keypress", function (event) {
+            if (event.keyCode === 13 && $.trim(chatInput.value) != "") {
+                const message = chatInput.value;
+                $("#chat-input").val('');
+                setTimeout(() => {
+                    $("#chat-input").val('');
+                }, 100);
+                $(".typing-loader").show();
+                createMessage(message);
+                appendMessage(message);
+                event.preventDefault();
+            }
+        });
+
+        if (sendButton) {
+            sendButton.addEventListener("click", function () {
+                if($.trim(chatInput.value) != ""){
+                    const message = chatInput.value;
+                    chatInput.value = "";
+                    $(this).val('');
+                    $(".typing-loader").show();
+                    createMessage(message);
+                    appendMessage(message);
+                }
+            });
+        }
+
+        function sendMessageWhenStopRecording(){
+            if($.trim(chatInput.value) != ""){
+                const message = chatInput.value;
+                chatInput.value = "";
+                $(this).val('');
+                $(".typing-loader").show();
+                createMessage(message);
+                appendMessage(message);
+            }
+        }
+
+    </script>
+
+<style type="text/css">
+/*  typing loader    */
+.typing-loader{
+margin: 60px auto;
+width: 6px;
+height: 6px;
+-webkit-animation: line 1s linear infinite alternate;
+-moz-animation: line 1s linear infinite alternate;
+animation: line 1s linear infinite alternate;
+   position: absolute;
+   left: 22px;
+    bottom: 30px;
+display: none;
+}
+@-webkit-keyframes line{
+0%{
+   
+    background-color: rgba(0,0,0, 1);
+    box-shadow: 12px 0px 0px 0px rgba(0,0,0,0.2), 
+                24px 0px 0px 0px rgba(0,0,0,0.2);
+                
+  }
+25%{ 
+        background-color: rgba(0,0,0, 0.4);
+        box-shadow: 12px 0px 0px 0px rgba(0,0,0,2), 
+                24px 0px 0px 0px rgba(0,0,0,0.2);
+                
+}
+75%{ background-color: rgba(0,0,0, 0.4);
+    box-shadow: 12px 0px 0px 0px rgba(0,0,0,0.2), 
+                24px 0px 0px 0px rgba(0,0,0,2);
+               
+  }
+}
+
+@-moz-keyframes line{
+0%{
+   
+    background-color: rgba(0,0,0, 1);
+    box-shadow: 12px 0px 0px 0px rgba(0,0,0,0.2), 
+                24px 0px 0px 0px rgba(0,0,0,0.2);
+                
+  }
+25%{ 
+        background-color: rgba(0,0,0, 0.4);
+        box-shadow: 12px 0px 0px 0px rgba(0,0,0,2), 
+                24px 0px 0px 0px rgba(0,0,0,0.2);
+                
+}
+75%{ background-color: rgba(0,0,0, 0.4);
+    box-shadow: 12px 0px 0px 0px rgba(0,0,0,0.2), 
+                24px 0px 0px 0px rgba(0,0,0,2);
+               
+  }
+}
+
+@keyframes line{
+0%{
+   
+    background-color: rgba(0,0,0, 1);
+    box-shadow: 12px 0px 0px 0px rgba(0,0,0,0.2), 
+                24px 0px 0px 0px rgba(0,0,0,0.2);
+                
+  }
+25%{ 
+        background-color: rgba(0,0,0, 0.4);
+        box-shadow: 12px 0px 0px 0px rgba(0,0,0,2), 
+                24px 0px 0px 0px rgba(0,0,0,0.2);
+                
+}
+75%{ background-color: rgba(0,0,0, 0.4);
+    box-shadow: 12px 0px 0px 0px rgba(0,0,0,0.2), 
+                24px 0px 0px 0px rgba(0,0,0,2);
+               
+  }
+}
+/*  typing loader    */
+@media (max-width:439px){
+.chat, .start-group {
+right: 5px;
+}
+}
+.overlay {
+  position: fixed;
+  z-index: 9999;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black overlay */
+  display: none;
+}
+
+.loader {
+  /* position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 50px;
+  height: 50px;
+  background: url('loader.gif') no-repeat center center; */
+}
+
+</style>
+ <!---Chat Board Start-->
+ <div class="loader"></div>
+</body>
+
+</html>
