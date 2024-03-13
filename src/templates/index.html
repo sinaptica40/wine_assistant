@@ -45,44 +45,10 @@
     <!-- loader  -->
     <div class="loader-wrapper" style="display: none;">
         <div class="loader">
-            <img src="{{ url_for('static', filename='img/logo.png') }}" alt="">
+            <img src="{{ url_for('static', filename='img/logo-gbs.png') }}" alt="">
         </div>
     </div>
 
-    <!-- Header -->
-    <!-- <header id="header">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <nav class="navbar navbar-expand-lg">
-                        <a class="navbar-brand" href="index.html">
-                            <img src="{{ url_for('static', filename='img/logo.png') }}" alt="">
-                        </a>
-                        <div class="overlay" style="display:none"></div>
-                        <div class="collapse navbar-collapse">
-                            <button class="navbar-toggler menuClose-icon" type="button">
-                                <svg width="14" height="14" viewBox="0 0 14 14" fill="none"
-                                    xmlns="http://www.w3.org/2000/svg">
-                                    <path
-                                        d="M1.4 14L0 12.6L5.6 7L0 1.4L1.4 0L7 5.6L12.6 0L14 1.4L8.4 7L14 12.6L12.6 14L7 8.4L1.4 14Z"
-                                        fill="black" />
-                                </svg>
-                            </button>
-
-                
-                        </div>
-
-
-                        <button class="navbar-toggler" type="button">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-                    </nav>
-                </div>
-            </div>
-        </div>
-    </header> -->
-
-    <!-- chatBox -->
     <style>
    
     </style>
@@ -91,12 +57,12 @@
         <div class="msger">
         <div class="msger-header"> 
             <a class="fixedLogo" href="javascript:void(0)">
-                <img src="{{ url_for('static', filename='img/logo.png') }}" alt="">
+                <img src="{{ url_for('static', filename='img/logo-gbs.png') }}" alt="">
             </a>
           <div class="msger-header-bg"></div>
           <div class="msger-header-title">
-                <video id="video-element" muted autoplay loop poster="{{ url_for('static', filename='img/avatar1.png') }}" >
-                    <source src="{{ url_for('static', filename='img/1708699033779.mp4') }}" type="video/mp4">
+                <video id="video-element" class="weave" muted autoplay loop poster="{{ url_for('static', filename='img/image_2024_02_23T17_30_06_952Z_new.png') }}" >
+                    <source src="" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
 
@@ -129,14 +95,15 @@
           <div class="msg left-msg">      
             <div class="msg-bubble">
               <div class="msg-text">
-                Hi, I’m Lorenzo 👋 your friendly Wine Expert
+                "Ciao, sono Lorenzo, il tuo esperto di vini."<br />
+                "Puoi chiedermi come abbinare vino e cibo o la differenza tra due vini."
               </div>
             </div>
           </div>
           <div class="msg left-msg">
             <div class="msg-bubble">      
               <div class="msg-text">
-                Ready to chat?
+                Vuoi provare?
               </div>
             </div>
           </div>
@@ -161,12 +128,12 @@
     </div>
     <script>
 
-    var avatar_path   = "{{ url_for('static', filename='img/avatar1.png', _external=True) }}";
-    var video_path   = "{{ url_for('static', filename='img/1708699033779.mp4', _external=True) }}";
+    var avatar_path   = "{{ url_for('static', filename='img/image_2024_02_23T17_30_06_952Z_new.png', _external=True) }}";
+    var video_path   = "";
 
     </script>
 
-      <script src="{{ url_for('static', filename='js/index.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/index.js') }}"></script>
     <script>
         
 
@@ -305,6 +272,16 @@
         $(".firstmessagetime").html(getCurrentTime);
 
         async function appendMessage(message, isUser = true) {
+            console.log(isUser)
+            console.log(message)
+            if(isUser == true){
+                var voice_text  =   message
+                var html_text  =   message
+            }else{
+                var voice_text  =   message.voice_text
+                var html_text  =   message.html_text
+            }
+            
             // connectionState not supported in firefox
             if ((peerConnection?.signalingState === 'stable' || peerConnection?.iceConnectionState === 'connected') && isUser == false) {
                 const playResponse =  await fetchWithRetries(`${DID_API.url}/${DID_API.service}/streams/${streamId}`, {
@@ -312,11 +289,17 @@
                 headers: {
                     Authorization: `Basic ${DID_API.key}`,
                     'Content-Type': 'application/json',
+                    //'x-api-key-external': '{"elevenlabs": "e13b44e283ca2f44d5f3e2529fe7e021"}',
                 },
                 body: JSON.stringify({
                     script: {
-                    type: 'text',
-                    input: message,
+                        type: 'text',
+                        input: voice_text,
+                        subtitles: 'false', 
+                        provider: {
+                            type: 'microsoft', voice_id: 'it-IT-CataldoNeural'
+                        },
+                        ssml: 'false'
                     },
                     ...(DID_API.service === 'clips' && {
                     background: {
@@ -351,7 +334,7 @@
             var innerHTML   =   `<div class="msg `+classv+`-msg">
                                     <div class="msg-bubble">
                                     <div class="msg-text">
-                                        `+message+`
+                                        `+html_text+`
                                     </div>
                                     </div>
                                 </div>`
@@ -506,6 +489,7 @@ right: 5px;
   height: 50px;
   background: url('loader.gif') no-repeat center center; */
 }
+
 
 </style>
  <!---Chat Board Start-->

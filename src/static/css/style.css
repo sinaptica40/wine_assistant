@@ -7,7 +7,7 @@ body {
 }
 html, body, #root {
     height: 100%;
-    background-color: #fff;
+    background-color: transparent;
     overflow: hidden;
 }
 ::selection {
@@ -634,6 +634,7 @@ input:focus-visible {
   }
   
   .msger-header {
+        margin-top: 15px;
     position: relative;
     display: flex;
     flex-direction: column;
@@ -643,22 +644,22 @@ input:focus-visible {
     align-items: center;
     gap: 8px;
     padding-block-start: 20px;
-    background-color: white;
+    background-color: transparent;
     min-height: 200px;
     max-height: 575px;
-    height: 50%;
+    height: 55%;
     z-index: 3;
     box-sizing: border-box;
-    box-shadow: white 0px 0px 15px 15px;
+    /* box-shadow: white 0px 0px 15px 15px; */
   }
   .msger-header-bg{
-    position: absolute;
+    /* position: absolute;
     top: -50%;
     bottom: -50%;
     pointer-events: none;
     background: radial-gradient(circle at calc(35%) 55%, rgba(0, 189, 255, 0.48), transparent 35%), radial-gradient(circle at calc(65%) 55%, rgba(42, 0, 255, 0.26), transparent 35%), transparent;
     width: 100%;
-    min-width: 350px;
+    min-width: 350px; */
   }
   .msger-header-title {
     display: flex;
@@ -698,15 +699,24 @@ input:focus-visible {
 }
 #video-element{
     position: absolute;
-border-radius: 100%;
-display: block;
-height: 100%;
-aspect-ratio: 1 / 1;
-object-fit: initial;
-z-index: 2;
-opacity: 1;
-object-fit: cover;
-transition: opacity 0.5s ease-in-out 0s;
+    border-radius: 50%;
+    display: block;
+    height: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: initial;
+    z-index: 2;
+    opacity: 1;
+    object-fit: cover;
+    transition: opacity 0.5s ease-in-out 0s;
+    /*box-shadow: 0 0 11px 0px #0000009c;*/
+    box-shadow:0 0 0 2px hsl(0deg 0% 100% / 43%), 0 0 0 5px hsl(0deg 0% 100% / 0%), 0 0 0 16px hsl(0deg 0% 100% / 8%), 0 0 0 23px hsl(0deg 0% 100% / 9%), 0 0 0 30px hsl(0deg 0% 90% / 11%);
+}
+body{
+    /*background-image: url(../img/body-bg.png);*/
+    background-image: url(../img/Sfondo.png);    
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 .msger-chat .msg:first-child{
     margin: 0px auto 0px 0px;
@@ -786,12 +796,12 @@ transition: opacity 0.5s ease-in-out 0s;
     border-bottom-left-radius: 0;
   }
   .fixedLogo {
-    max-width: 50px;
+    max-width: 110px;
     height: auto;
     padding: 0px;
     margin: 0px;
     position: absolute;
-    top: 16px;
+    top: 1px;
     left: 16px;
     cursor: pointer;
 }
@@ -828,7 +838,7 @@ transition: opacity 0.5s ease-in-out 0s;
     position: relative;
     flex: 1 1 0%;
     overflow: hidden;
-    background: rgb(255, 255, 255);
+    background:transparent;
     height: 100%;
     max-width: 790px;
     margin: 0px auto;
@@ -939,3 +949,78 @@ transition: opacity 0.5s ease-in-out 0s;
     border: 0;   
   }
 /* login */
+
+
+
+/**Aggiunta stile input**/
+.msger-input,
+.msger-inputarea button{
+   /* background: transparent;
+    border: 1px solid #ffffff5e;
+    --webkit-backdrop-filter: blur(30px);
+    background-color: rgb(255 255 255 / 64%);*/
+    /*color: rgb(255 255 255 / 85%);*/
+    box-shadow: rgb(255 255 255 / 50%) 0px 0px 5px -2px;
+  }
+
+  .msger-input::placeholder{
+      /*color:rgb(255 255 255 / 45%)*/
+  }
+
+.msg-bubble{
+ /*   background: transparent;
+    border: 1px solid #ffffff5e;
+    / Note: currently only Safari supports backdrop-filter /
+    backdrop-filter: blur(30px);
+    --webkit-backdrop-filter: blur(30px);
+    background-color: rgb(255 255 255 / 20%);
+    color:rgb(255 255 255 / 85%);*/
+    box-shadow: rgb(255 255 255 / 50%) 0px 0px 5px -2px;
+}
+
+.msger-inputarea button svg {
+    /*fill: rgb(255 255 255 / 85%);*/
+}
+
+/*.weave {
+    display: block;
+    width: 120px;
+    height: 120px;
+    border: 4px solid #ffb9ad;
+    border-radius: 36px;
+    margin: 40px auto;
+    position: relative;
+    color: #ffb9ad;
+    text-align: center;
+    font: 700 30px/120px "Quicksand", sans-serif;
+}*/
+.msger-header-title {
+    aspect-ratio: 1 / 1;
+    border: 3px solid #ffffff;
+    border-radius: 50%;
+}
+.msger-header-title:before, .msger-header-title:after {
+display: block;
+    width: calc(100% + 14px);
+    height: calc(100% + 30px);
+    border: 2px solid #ffffff;
+    border-radius: 36px;
+    content: "";
+    position: absolute;
+    top: -14px;
+    aspect-ratio: 1 / 1;
+    /* left: 1px; */
+    border-radius: 50%;
+}
+.msger-header-title:before {
+    -moz-transform: rotate(99deg);
+    -ms-transform: rotate(99deg);
+    -webkit-transform: rotate(99deg);
+    transform: rotate(99deg);
+}
+.msger-header-title:after {
+    -moz-transform: rotate(30deg);
+    -ms-transform: rotate(30deg);
+    -webkit-transform: rotate(30deg);
+    transform: rotate(30deg);
+}

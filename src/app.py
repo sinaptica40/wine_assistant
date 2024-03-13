@@ -19,7 +19,7 @@ def createApp():
     app.config.from_pyfile('config/configurations.py')
 
     # Database connection initialize
-    #db.init_app(app)
+    db.init_app(app)
         
     # Register blueprints
     app.register_blueprint(apiBluePrint)
